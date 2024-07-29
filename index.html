@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tarot!</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<h1>Fortunetelling with Tarot</h1>
+<textarea id="question" placeholder="Enter your question here..."></textarea>
+<button onclick="getPrediction()">Start Tarot</button>
+<textarea id="result" readonly></textarea>
+<button onclick="exportToCSV()">Export Result</button>
+<button onclick="reset()">Reset</button>
+<div id="menu">
+    <a href="#" onclick="showAPIKeyPopup()">API Key</a>
+    <a href="#" onclick="showUsagePopup()">Usage</a>
+</div>
+<div id="popup">
+    <span id="close" onclick="closePopup()">x</span>
+    <p>This tool uses the free LLM <a href=“https://console.groq.com/”>Groq</a>, so users will need to obtain their own
+        API key. The API key is stored in the browser and is not shared with other people or developer.
+    </p>
+    <p>You can create an API key from <a href="https://console.groq.com/keys">this page</a> and set it in the API key
+        menu. If you want to update or delete your
+        API key, set an empty string.
+    </p>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
