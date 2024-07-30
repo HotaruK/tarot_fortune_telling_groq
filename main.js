@@ -146,3 +146,13 @@ function closePopup() {
 }
 
 document.getElementById('menu').style.display = 'block';
+
+function shuffleCard() {
+    let shuffleTimes = Math.floor(Math.random() * 300) + 1;
+    for (let t = 0; t < shuffleTimes; t++) {
+        for (let i = tarotDeck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [tarotDeck[i], tarotDeck[j]] = [tarotDeck[j], tarotDeck[i]];
+        }
+    }
+}
