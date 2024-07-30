@@ -98,3 +98,25 @@ button {
     top: 10px;
     cursor: pointer;
 }
+
+.toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle input[type="radio"] {
+    display: none;
+}
+
+.toggle label {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.toggle input[type="radio"]:checked + label {
+    background-color: #A367B1;
+    color: #f9f9f9;
+}
