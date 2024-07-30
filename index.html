@@ -6,6 +6,12 @@
 </head>
 <body>
 <h1>Fortunetelling with Tarot</h1>
+<div class="toggle">
+    <input type="radio" id="threeCard" name="readingType" value="threeCard" checked>
+    <label for="threeCard">Three Card</label>
+    <input type="radio" id="yesNo" name="readingType" value="yesNo">
+    <label for="yesNo">Yes/No</label>
+</div>
 <textarea id="question" placeholder="Enter your question here..."></textarea>
 <button onclick="getPrediction()">Start Tarot</button>
 <textarea id="result" readonly></textarea>
@@ -24,6 +30,11 @@
         menu. If you want to update or delete your
         API key, set an empty string.
     </p>
+    <p>If you want to gain deep insights about the future, please choose Three Card. If you want a clear answer to a
+        specific question, please choose Yes/No.</p>
+</div>
+<div>
+    <p>The repository is <a href="https://github.com/HotaruK/tarot_fortune_telling_groq">here</a></p>
 </div>
 <script src="main.js"></script>
 </body>
