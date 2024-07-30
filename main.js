@@ -26,8 +26,25 @@ let lastDrawnCards = [];
 
 async function getPrediction() {
     const question = document.getElementById('question').value;
-    const cards = drawCards();
-    lastDrawnCards = cards;
+    const readingType = document.querySelector('input[name="readingType"]:checked').value;
+    let prompt = '';
+    let cards = []
+
+    switch (readingType) {
+        case 'threeCard':
+            cards = drawCards(3);
+            lastDrawnCards = cards;
+            prompt = `I have drawn three tarot cards for the user. Please answer the user's question by considering the meaning of each card individually and the overall combination of the cards. The answer should be in two sections: 1. The cards the user has drawn and their simple meanings (taking into account their positions). Please use the name of the section as “The card you drew”. 2. An overall tarot reading and advice for the user. Please use the section name “Results”. Question: "${question}" The cards drawn: ${cards.map(card => card.toString()).join(', ')}.`
+            break;
+        case 'yesNo':
+            cards = drawCards(1);
+            lastDrawnCards = cards;
+            prompt = `I drew one card as an answer to your question. Please interpret this as a single oracle. The answer should include the following information: 1. a summary of the meaning of the card (taking into account the position of the card), 2. an answer to the question, and 3. a Yes/No answer and the probability of confidence in that answer (such as “Yes with 100% probability”). A Yes/No answer is basically considered to be close to Yes if the card is in the upright position. However, the answer will be flexible depending on the question and the relevance of the card's meaning. Question: "${question}" The cards drawn: ${cards.map(card => card.toString()).join(', ')}.`
+            break;
+        default:
+            console.log('No reading type selected');
+    }
+
     let apiKey = localStorage.getItem('apiKey');
     if (!apiKey) {
         showAPIKeyPopup();
@@ -43,7 +60,7 @@ async function getPrediction() {
         body: JSON.stringify({
             messages: [{
                 role: "user",
-                content: `I have drawn three tarot cards for the user. Please answer the user's question by considering the meaning of each card individually and the overall combination of the cards. The answer should be in two sections: 1. The cards the user has drawn and their simple meanings (taking into account their positions). Please use the name of the section as “The card you drew”. 2. An overall tarot reading and advice for the user. Please use the section name “Results”. Question: "${question}" The cards drawn: ${cards.map(card => card.toString()).join(', ')}.`
+                content: prompt,
             }],
             model: "llama3-8b-8192"
         })
@@ -71,10 +88,10 @@ class Card {
     }
 }
 
-function drawCards() {
+function drawCards(cardNum) {
     let drawnCards = [];
     let drawnIndices = new Set();
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < cardNum; i++) {
         let cardIndex;
         do {
             cardIndex = Math.floor(Math.random() * tarotDeck.length);
